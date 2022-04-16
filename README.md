@@ -12,4 +12,4 @@ Dimension Cat is an open-world RPG game surrounding the adventures of Benji and 
 
 Join Benji and the various dimensions/enemies awaiting your arrival in Dimension Cat. A neverending journey to find "home". 
 
-__Download available NOW: https://rb.gy/spr3ck__
+__Download available NOW: https://t.co/X6mRb2wIm5__
