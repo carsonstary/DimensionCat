@@ -24,7 +24,6 @@ func _button_pressed():
 		clickcount = 999
 		get_parent().get_parent().get_parent().get_node("Main/Portal").visible = false
 		get_parent().get_parent().get_parent().get_node("MainTheme").stop()
-		get_parent().get_parent().get_parent().get_node("ClockTick").play()
 		get_parent().get_parent().get_parent().get_node("GlitchSound").play()
 		get_parent().get_parent().get_parent().get_node("Shader").visible = true
 		yield(get_tree().create_timer(1), "timeout")

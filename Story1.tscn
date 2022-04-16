@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Story-MC.gd" type="Script" id=1]
 [ext_resource path="res://Portal.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=5]
 [ext_resource path="res://MainTheme-Story1.gd" type="Script" id=6]
 [ext_resource path="res://assets/audio/341857__shadydave__before-we-grow-up-loop.wav" type="AudioStream" id=7]
-[ext_resource path="res://assets/audio/506085__xcreenplay__clock-is-ticking.wav" type="AudioStream" id=8]
 [ext_resource path="res://PortalNoise.gd" type="Script" id=9]
 [ext_resource path="res://assets/light_shadow_all_lights_no_blob.png" type="Texture" id=10]
 [ext_resource path="res://icon.png" type="Texture" id=11]
@@ -127,7 +126,7 @@ scale = Vector2( 50, 7 )
 enabled = true
 
 [node name="PortalNoise" type="AudioStreamPlayer2D" parent="Main/Portal"]
-stream = ExtResource( 8 )
+stream = ExtResource( 15 )
 max_distance = 1000.0
 attenuation = 111.431
 script = ExtResource( 9 )
@@ -213,11 +212,6 @@ volume_db = -4.0
 autoplay = true
 attenuation = 7.72748
 script = ExtResource( 6 )
-
-[node name="ClockTick" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( 992.917, 377.5 )
-stream = ExtResource( 8 )
-attenuation = 9.18958
 
 [node name="GlitchSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )

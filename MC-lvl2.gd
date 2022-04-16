@@ -7,6 +7,7 @@ onready var globals2 = get_node("/root/Variables2")
 var LuckActive = false
 var LuckTimer = false
 var DrainWarning = true
+var candrain = true
 var rng = RandomNumberGenerator.new()
 export (int) var speed = 800
 
@@ -65,18 +66,6 @@ func get_input():
 					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 					if random_pos != self.position:
 						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					if globals.drain == true:
-						if DrainWarning == true:
-							$Node2D/LifeDrain.show()
-							yield(get_tree().create_timer(3.0), "timeout")
-							$Node2D/LifeDrain.hide()
-							DrainWarning = false
-						elif DrainWarning == false:
-							rng.randomize()
-							var random = int(rng.randf_range(0, 100))
-							if random % 3:
-								globals.set_kills(globals.kills - 3)
-								get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 
 				if get_node("/root/Variables2").LuckPotion == true:
 					globals.set_shop(false)
@@ -129,3 +118,23 @@ func _physics_process(_delta):
 		else:
 			globals.set_kills(0)
 			get_tree().change_scene("res://Death.tscn")
+
+func _process(delta: float) -> void:
+	rng.randomize()
+	var random = rng.randf_range(0,1000)
+	if random < 500 && candrain == true && globals.kills > 0:
+		allowdrain()
+		candrain = false
+		if globals.drain == true:
+			if DrainWarning == true:
+				$Node2D/LifeDrain.show()
+				yield(get_tree().create_timer(3.0), "timeout")
+				$Node2D/LifeDrain.hide()
+				DrainWarning = false
+			elif DrainWarning == false:
+				globals.set_kills(globals.kills - 3)
+				get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+
+func allowdrain():
+	yield(get_tree().create_timer(5.0), "timeout")
+	candrain = true
