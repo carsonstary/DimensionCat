@@ -1,2 +1,5 @@
 # Dimension Cat | Download!
-Dimension Cat has not released a public download yet. In the very near future, this page will contain links to download the official version of our game!
+Dimension Cat has gone public! You can find a download link for each version below, starting with the most recent at the top. Enjoy <3
+
+*v1.0.0:*
+  https://rb.gy/spr3ck
