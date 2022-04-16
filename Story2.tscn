@@ -1,0 +1,313 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://MainTheme-Story1.gd" type="Script" id=2]
+[ext_resource path="res://Story-MC.gd" type="Script" id=3]
+[ext_resource path="res://ControlTextbox.gd" type="Script" id=4]
+[ext_resource path="res://assets/audio/341857__shadydave__before-we-grow-up-loop.wav" type="AudioStream" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://Story2.gd" type="Script" id=7]
+[ext_resource path="res://TileMap.tres" type="TileSet" id=8]
+[ext_resource path="res://assets/light_shadow_background.png" type="Texture" id=9]
+[ext_resource path="res://assets/audio/501575__discordantscraps__glitch-tickle-3.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/portal.png" type="Texture" id=11]
+[ext_resource path="res://Portal.gd" type="Script" id=12]
+[ext_resource path="res://PortalNoise.gd" type="Script" id=13]
+[ext_resource path="res://assets/audio/506085__xcreenplay__clock-is-ticking.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/eyes2.png" type="Texture" id=15]
+[ext_resource path="res://assets/watching.png" type="Texture" id=16]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 819.021, 1069.31 )
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/Untitled_Artwork.png-d90c847bcdbe0f822183364093d4c923.stex"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/worm.png-5e0fbb9b14ba6c7ef9f12d3a00c828ae.stex"
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 115.422, 42.6999 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StreamTexture" id=7]
+flags = 4
+load_path = "res://.import/white_lighting.png-aa4494db1c3a6dc83e3f461474e82d12.stex"
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+// 振動の強さ
+uniform float shake_power = 1;
+// 振動率
+uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.2;
+// 振動速度
+uniform float shake_speed = 10;
+// 振動ブロックサイズ
+uniform float shake_block_size = 30.5;
+// 色の分離率
+uniform float shake_color_rate : hint_range( 0.0, 1.0 ) = 0.5;
+
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46, -54.3415 ) ) ) );
+}
+
+void fragment( )
+{
+	float enable_shift = float(
+		random( trunc( TIME * shake_speed ) )
+	<	shake_rate
+	);
+
+	vec2 fixed_uv = SCREEN_UV;
+	fixed_uv.x += (
+		random(
+			( trunc( SCREEN_UV.y * shake_block_size ) / shake_block_size )
+		+	TIME
+		) - 0.5
+	) * shake_power * enable_shift;
+
+	vec4 pixel_color = textureLod( SCREEN_TEXTURE, fixed_uv, 0.0 );
+	pixel_color.r = mix(
+		pixel_color.r
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( shake_color_rate, 0.0 ), 0.0 ).r
+	,	enable_shift
+	);
+	pixel_color.b = mix(
+		pixel_color.b
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( -shake_color_rate, 0.0 ), 0.0 ).b
+	,	enable_shift
+	);
+	COLOR = pixel_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/shake_power = 1.0
+shader_param/shake_rate = 0.2
+shader_param/shake_speed = 10.0
+shader_param/shake_block_size = 30.5
+shader_param/shake_color_rate = 0.5
+
+[node name="Story2" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 8 )
+format = 1
+tile_data = PoolIntArray( 65533, 7, 0, 65534, 7, 0, 65535, 7, 0, 0, 7, 0, 1, 7, 0, 2, 7, 0, 3, 7, 0, 4, 7, 0, 5, 7, 0, 6, 7, 0, 7, 7, 0, 8, 7, 0, 9, 7, 0, 10, 7, 0, 11, 7, 0, 12, 7, 0, 13, 7, 0, 14, 7, 0, 15, 7, 0, 16, 7, 0, 17, 7, 0, 18, 7, 0, 19, 7, 0, 20, 7, 0, 21, 7, 0, 22, 7, 0, 23, 7, 0, 24, 7, 0, 25, 7, 0, 131069, 7, 0, 131070, 7, 0, 131071, 7, 0, 65536, 7, 0, 65537, 7, 0, 65538, 7, 0, 65539, 7, 0, 65540, 7, 0, 65541, 7, 0, 65542, 7, 0, 65543, 7, 0, 65544, 7, 0, 65545, 7, 0, 65546, 7, 0, 65547, 7, 0, 65548, 7, 0, 65549, 7, 0, 65550, 7, 0, 65551, 7, 0, 65552, 7, 0, 65553, 7, 0, 65554, 7, 0, 65555, 7, 0, 65556, 7, 0, 65557, 7, 0, 65558, 7, 0, 65559, 7, 0, 65560, 7, 0, 65561, 7, 0, 196605, 7, 0, 196606, 7, 0, 196607, 7, 0, 131072, 7, 0, 131073, 7, 0, 131074, 7, 0, 131075, 7, 0, 131076, 7, 0, 131077, 7, 0, 131078, 7, 0, 131079, 7, 0, 131080, 7, 0, 131081, 7, 0, 131082, 7, 0, 131083, 7, 0, 131084, 7, 0, 131085, 7, 0, 131086, 7, 0, 131087, 7, 0, 131088, 7, 0, 131089, 7, 0, 131090, 7, 0, 131091, 7, 0, 131092, 7, 0, 131093, 7, 0, 131094, 7, 0, 131095, 7, 0, 131096, 7, 0, 131097, 7, 0, 262141, 7, 0, 262142, 7, 0, 262143, 7, 0, 196608, 7, 0, 196609, 7, 0, 196610, 7, 0, 196611, 7, 0, 196612, 7, 0, 196613, 7, 0, 196614, 7, 0, 196615, 7, 0, 196616, 7, 0, 196617, 7, 0, 196618, 7, 0, 196619, 7, 0, 196620, 7, 0, 196621, 7, 0, 196622, 7, 0, 196623, 7, 0, 196624, 7, 0, 196625, 7, 0, 196626, 7, 0, 196627, 7, 0, 196628, 7, 0, 196629, 7, 0, 196630, 7, 0, 196631, 7, 0, 196632, 7, 0, 196633, 7, 0, 327677, 7, 0, 327678, 7, 0, 327679, 7, 0, 262144, 7, 0, 262145, 7, 0, 262146, 7, 0, 262147, 7, 0, 262148, 7, 0, 262149, 7, 0, 262150, 7, 0, 262151, 7, 0, 262152, 7, 0, 262153, 7, 0, 262154, 7, 0, 262155, 7, 0, 262156, 7, 0, 262157, 7, 0, 262158, 7, 0, 262159, 7, 0, 262160, 7, 0, 262161, 7, 0, 262162, 7, 0, 262163, 7, 0, 262164, 7, 0, 262165, 7, 0, 262166, 7, 0, 262167, 7, 0, 262168, 7, 0, 262169, 7, 0, 393213, 7, 0, 393214, 7, 0, 393215, 7, 0, 327680, 7, 0, 327681, 7, 0, 327682, 7, 0, 327683, 7, 0, 327684, 7, 0, 327685, 7, 0, 327686, 7, 0, 327687, 7, 0, 327688, 7, 0, 327689, 7, 0, 327690, 7, 0, 327691, 7, 0, 327692, 7, 0, 327693, 7, 0, 327694, 7, 0, 327695, 7, 0, 327696, 7, 0, 327697, 7, 0, 327698, 7, 0, 327699, 7, 0, 327700, 7, 0, 327701, 7, 0, 327702, 7, 0, 327703, 7, 0, 327704, 7, 0, 327705, 7, 0, 458749, 7, 0, 458750, 7, 0, 458751, 7, 0, 393216, 7, 0, 393217, 7, 0, 393218, 7, 0, 393219, 7, 0, 393220, 7, 0, 393221, 7, 0, 393222, 7, 0, 393223, 7, 0, 393224, 7, 0, 393225, 7, 0, 393226, 7, 0, 393227, 7, 0, 393228, 7, 0, 393229, 7, 0, 393230, 7, 0, 393231, 7, 0, 393232, 7, 0, 393233, 7, 0, 393234, 7, 0, 393235, 7, 0, 393236, 7, 0, 393237, 7, 0, 393238, 7, 0, 393239, 7, 0, 393240, 7, 0, 393241, 7, 0, 524285, 7, 0, 524286, 7, 0, 524287, 7, 0, 458752, 7, 0, 458753, 7, 0, 458754, 7, 0, 458755, 7, 0, 458756, 7, 0, 458757, 7, 0, 458758, 7, 0, 458759, 7, 0, 458760, 7, 0, 458761, 7, 0, 458762, 7, 0, 458763, 7, 0, 458764, 7, 0, 458765, 7, 0, 458766, 7, 0, 458767, 7, 0, 458768, 7, 0, 458769, 7, 0, 458770, 7, 0, 458771, 7, 0, 458772, 7, 0, 458773, 7, 0, 458774, 7, 0, 458775, 7, 0, 458776, 7, 0, 458777, 7, 0, 589821, 7, 0, 589822, 7, 0, 589823, 7, 0, 524288, 7, 0, 524289, 7, 0, 524290, 7, 0, 524291, 7, 0, 524292, 7, 0, 524293, 7, 0, 524294, 7, 0, 524295, 7, 0, 524296, 7, 0, 524297, 7, 0, 524298, 7, 0, 524299, 7, 0, 524300, 7, 0, 524301, 7, 0, 524302, 7, 0, 524303, 7, 0, 524304, 7, 0, 524305, 7, 0, 524306, 7, 0, 524307, 7, 0, 524308, 7, 0, 524309, 7, 0, 524310, 7, 0, 524311, 7, 0, 524312, 7, 0, 524313, 7, 0, 655357, 7, 0, 655358, 7, 0, 655359, 7, 0, 589824, 7, 0, 589825, 7, 0, 589826, 7, 0, 589827, 7, 0, 589828, 7, 0, 589829, 7, 0, 589830, 7, 0, 589831, 7, 0, 589832, 7, 0, 589833, 7, 0, 589834, 7, 0, 589835, 7, 0, 589836, 7, 0, 589837, 7, 0, 589838, 7, 0, 589839, 7, 0, 589840, 7, 0, 589841, 7, 0, 589842, 7, 0, 589843, 7, 0, 589844, 7, 0, 589845, 7, 0, 589846, 7, 0, 589847, 7, 0, 589848, 7, 0, 589849, 7, 0, 720893, 7, 0, 720894, 7, 0, 720895, 7, 0, 655360, 7, 0, 655361, 7, 0, 655362, 7, 0, 655363, 7, 0, 655364, 7, 0, 655365, 7, 0, 655366, 7, 0, 655367, 7, 0, 655368, 7, 0, 655369, 7, 0, 655370, 7, 0, 655371, 7, 0, 655372, 7, 0, 655373, 7, 0, 655374, 7, 0, 655375, 7, 0, 655376, 7, 0, 655377, 7, 0, 655378, 7, 0, 655379, 7, 0, 655380, 7, 0, 655381, 7, 0, 655382, 7, 0, 655383, 7, 0, 655384, 7, 0, 655385, 7, 0, 786429, 7, 0, 786430, 7, 0, 786431, 7, 0, 720896, 7, 0, 720897, 7, 0, 720898, 7, 0, 720899, 7, 0, 720900, 7, 0, 720901, 7, 0, 720902, 7, 0, 720903, 7, 0, 720904, 7, 0, 720905, 7, 0, 720906, 7, 0, 720907, 7, 0, 720908, 7, 0, 720909, 7, 0, 720910, 7, 0, 720911, 7, 0, 720912, 7, 0, 720913, 7, 0, 720914, 7, 0, 720915, 7, 0, 720916, 7, 0, 720917, 7, 0, 720918, 7, 0, 720919, 7, 0, 720920, 7, 0, 720921, 7, 0, 851965, 7, 0, 851966, 7, 0, 851967, 7, 0, 786432, 7, 0, 786433, 7, 0, 786434, 7, 0, 786435, 7, 0, 786436, 7, 0, 786437, 7, 0, 786438, 7, 0, 786439, 7, 0, 786440, 7, 0, 786441, 7, 0, 786442, 7, 0, 786443, 7, 0, 786444, 7, 0, 786445, 7, 0, 786446, 7, 0, 786447, 7, 0, 786448, 7, 0, 786449, 7, 0, 786450, 7, 0, 786451, 7, 0, 786452, 7, 0, 786453, 7, 0, 786454, 7, 0, 786455, 7, 0, 786456, 7, 0, 786457, 7, 0, 917501, 7, 0, 917502, 7, 0, 917503, 7, 0, 851968, 7, 0, 851969, 7, 0, 851970, 7, 0, 851971, 7, 0, 851972, 7, 0, 851973, 7, 0, 851974, 7, 0, 851975, 7, 0, 851976, 7, 0, 851977, 7, 0, 851978, 7, 0, 851979, 7, 0, 851980, 7, 0, 851981, 7, 0, 851982, 7, 0, 851983, 7, 0, 851984, 7, 0, 851985, 7, 0, 851986, 7, 0, 851987, 7, 0, 851988, 7, 0, 851989, 7, 0, 851990, 7, 0, 851991, 7, 0, 851992, 7, 0, 851993, 7, 0, 983037, 7, 0, 983038, 7, 0, 983039, 7, 0, 917504, 7, 0, 917505, 7, 0, 917506, 7, 0, 917507, 7, 0, 917508, 7, 0, 917509, 7, 0, 917510, 7, 0, 917511, 7, 0, 917512, 7, 0, 917513, 7, 0, 917514, 7, 0, 917515, 7, 0, 917516, 7, 0, 917517, 7, 0, 917518, 7, 0, 917519, 7, 0, 917520, 7, 0, 917521, 7, 0, 917522, 7, 0, 917523, 7, 0, 917524, 7, 0, 917525, 7, 0, 917526, 7, 0, 917527, 7, 0, 917528, 7, 0, 917529, 7, 0, 1048573, 7, 0, 1048574, 7, 0, 1048575, 7, 0, 983040, 7, 0, 983041, 7, 0, 983042, 7, 0, 983043, 7, 0, 983044, 7, 0, 983045, 7, 0, 983046, 7, 0, 983047, 7, 0, 983048, 7, 0, 983049, 7, 0, 983050, 7, 0, 983051, 7, 0, 983052, 7, 0, 983053, 7, 0, 983054, 7, 0, 983055, 7, 0, 983056, 7, 0, 983057, 7, 0, 983058, 7, 0, 983059, 7, 0, 983060, 7, 0, 983061, 7, 0, 983062, 7, 0, 983063, 7, 0, 983064, 7, 0, 983065, 7, 0 )
+
+[node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 935.917, 291.5 )
+stream = ExtResource( 5 )
+autoplay = true
+attenuation = 7.72748
+script = ExtResource( 2 )
+
+[node name="GlitchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -14.0
+
+[node name="Main" type="Node" parent="."]
+
+[node name="Player" type="Node2D" parent="Main"]
+light_mask = 0
+position = Vector2( 570, 79 )
+
+[node name="Main Character" type="KinematicBody2D" parent="Main/Player"]
+position = Vector2( -23.9138, 16.3646 )
+script = ExtResource( 3 )
+
+[node name="Body" type="CollisionShape2D" parent="Main/Player/Main Character"]
+position = Vector2( 244.373, 283.385 )
+scale = Vector2( 0.110548, 0.0946879 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="MC-Sprite" type="Sprite" parent="Main/Player/Main Character"]
+position = Vector2( 246.414, 291.885 )
+scale = Vector2( 0.113553, 0.0973955 )
+texture = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="Main/Player/Main Character/MC-Sprite"]
+visible = false
+position = Vector2( -10.5732, 1.96484 )
+scale = Vector2( 6.29228, 5.77998 )
+rotating = true
+zoom = Vector2( 0.7, 0.7 )
+
+[node name="range" type="RayCast2D" parent="Main/Player/Main Character/MC-Sprite"]
+position = Vector2( -21.1191, 37.123 )
+rotation = -1.59349
+scale = Vector2( 1000, 40 )
+enabled = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 2
+
+[node name="range2" type="RayCast2D" parent="Main/Player/Main Character/MC-Sprite"]
+position = Vector2( -21.1191, 37.125 )
+rotation = 1.5708
+scale = Vector2( 1000, 40 )
+enabled = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 2
+
+[node name="groundray" type="RayCast2D" parent="Main/Player/Main Character/MC-Sprite"]
+position = Vector2( 40, 50 )
+scale = Vector2( 20, 30 )
+enabled = true
+cast_to = Vector2( 0, 30 )
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Portal" type="Sprite" parent="Main"]
+position = Vector2( 389, 393 )
+scale = Vector2( 0.246778, 0.268895 )
+texture = ExtResource( 11 )
+script = ExtResource( 12 )
+
+[node name="Detection" type="RayCast2D" parent="Main/Portal"]
+position = Vector2( 0, -156.193 )
+scale = Vector2( 50, 7 )
+enabled = true
+
+[node name="PortalNoise" type="AudioStreamPlayer2D" parent="Main/Portal"]
+stream = ExtResource( 14 )
+max_distance = 1000.0
+attenuation = 111.431
+script = ExtResource( 13 )
+
+[node name="Enemy" type="Sprite" parent="."]
+position = Vector2( 1214.23, 265.909 )
+scale = Vector2( 0.927706, 1.31817 )
+texture = SubResource( 3 )
+
+[node name="Enemy" type="KinematicBody2D" parent="Enemy"]
+position = Vector2( -1.28967, 3.85986 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemy"]
+position = Vector2( 14.0759, 0.657471 )
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy/Enemy/CollisionShape2D"]
+position = Vector2( -45.4786, 3.95435 )
+rotation = 1.5708
+scale = Vector2( 10, 4 )
+enabled = true
+exclude_parent = false
+cast_to = Vector2( 0, 10 )
+
+[node name="MeleeRange" type="CollisionShape2D" parent="Enemy/Enemy"]
+position = Vector2( 8.43421, 0.17334 )
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy/Enemy/MeleeRange"]
+position = Vector2( -45.4786, 3.9541 )
+rotation = 1.5708
+scale = Vector2( 10, 4 )
+enabled = true
+exclude_parent = false
+cast_to = Vector2( 0, 10 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="Dialogue" type="WindowDialog" parent="Control"]
+visible = true
+margin_left = 1.0
+margin_top = 520.0
+margin_right = 1553.0
+margin_bottom = 889.0
+
+[node name="Text" type="Label" parent="Control/Dialogue"]
+margin_left = 382.0
+margin_top = 63.0
+margin_right = 1387.0
+margin_bottom = 178.0
+custom_fonts/font = SubResource( 5 )
+text = "Well... That sure was a new experience! Maybe portaling in this world is a bad idea-"
+autowrap = true
+
+[node name="Continue" type="Label" parent="Control/Dialogue"]
+margin_left = 1292.0
+margin_top = 306.0
+margin_right = 1635.0
+margin_bottom = 335.0
+custom_fonts/font = SubResource( 6 )
+text = "Click anywhere to continue V"
+
+[node name="Icon" type="Sprite" parent="Control/Dialogue"]
+position = Vector2( 182.313, 145.594 )
+scale = Vector2( 0.593436, 0.56703 )
+texture = ExtResource( 6 )
+
+[node name="Button" type="Button" parent="Control/Dialogue"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -140.0
+margin_top = -651.0
+margin_right = 112.0
+margin_bottom = 175.0
+button_mask = 7
+script = ExtResource( 7 )
+
+[node name="World" type="Node2D" parent="."]
+position = Vector2( 7.62939e-06, 6.10352e-05 )
+rotation = 3.14159
+scale = Vector2( 0.221381, -38.1113 )
+
+[node name="World2D" type="StaticBody2D" parent="World"]
+position = Vector2( -27.1105, 1.57458 )
+rotation = 3.14159
+scale = Vector2( 4.51709, -0.0262389 )
+collision_layer = 4
+
+[node name="Light2D" type="Light2D" parent="World/World2D"]
+position = Vector2( 773.281, 435.655 )
+rotation = -0.000451488
+scale = Vector2( 1.93459, 1.8276 )
+texture = SubResource( 7 )
+energy = 0.8
+mode = 1
+
+[node name="Eyes" type="Sprite" parent="World"]
+visible = false
+modulate = Color( 1, 0.839216, 0.839216, 1 )
+light_mask = 2
+position = Vector2( -3550.44, 12.7005 )
+rotation = 3.14159
+scale = Vector2( 4.62152, -0.011161 )
+texture = ExtResource( 16 )
+
+[node name="Eyes2" type="Sprite" parent="World"]
+modulate = Color( 0.705882, 0.905882, 0.729412, 0.172549 )
+position = Vector2( -397.504, 2.62335 )
+scale = Vector2( 1.52645, 0.00805009 )
+texture = ExtResource( 15 )
+
+[node name="Eyes3" type="Sprite" parent="World"]
+modulate = Color( 1, 1, 1, 0.364706 )
+position = Vector2( -6653.68, 23.8472 )
+scale = Vector2( -1.43159, 0.00833853 )
+texture = ExtResource( 15 )
+
+[node name="Shader" type="Sprite" parent="."]
+visible = false
+material = SubResource( 9 )
+position = Vector2( 845, 436.5 )
+scale = Vector2( 2.6475, 1.975 )
+texture = ExtResource( 9 )

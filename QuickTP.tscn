@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/bg.png" type="Texture" id=1]
+[ext_resource path="res://assets/worm.png" type="Texture" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 794.5, 429 )
+scale = Vector2( 1.3175, 0.845455 )
+texture = ExtResource( 1 )
+
+[node name="WormWorld" type="Button" parent="."]
+margin_left = 52.0
+margin_top = 201.0
+margin_right = 214.0
+margin_bottom = 251.0
+rect_scale = Vector2( 2, 2 )
+text = "Layer 01: Worm World"
+
+[node name="Line2D" type="Line2D" parent="WormWorld"]
+position = Vector2( -10.5534, -1.61902 )
+scale = Vector2( 0.111895, 0.27381 )
+points = PoolVector2Array( 402.64, 142.87, 791.396, 142.87, 1189.09, 142.87 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="WormWorld"]
+position = Vector2( 208.5, 23.5 )
+scale = Vector2( 0.4125, 0.4375 )
+texture = ExtResource( 2 )

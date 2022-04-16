@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/171967__setuniman__dramatic-0v15m.mp3-862e2d86232e3b20c1d0bc5fc6141d7a.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/171967__setuniman__dramatic-0v15m.mp3"
+dest_files=[ "res://.import/171967__setuniman__dramatic-0v15m.mp3-862e2d86232e3b20c1d0bc5fc6141d7a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

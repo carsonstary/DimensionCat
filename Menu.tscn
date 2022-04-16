@@ -1,0 +1,145 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/audio/264295__foolboymedia__sky-loop.wav" type="AudioStream" id=1]
+[ext_resource path="res://NewGame-Button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/bg.png" type="Texture" id=3]
+[ext_resource path="res://Continue.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Options.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Button2.gd" type="Script" id=6]
+[ext_resource path="res://OpenWorld.gd" type="Script" id=7]
+[ext_resource path="res://Btton.gd" type="Script" id=8]
+[ext_resource path="res://Exit.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Exit.gd" type="Script" id=10]
+[ext_resource path="res://assets/audio/403007__inspectorj__ui-confirmation-alert-a2.wav" type="AudioStream" id=11]
+[ext_resource path="res://MainTheme.gd" type="Script" id=12]
+[ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=13]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/benji_peek.png-c66ce4ef54c7b85c14e84a553dc44cd0.stex"
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+outline_size = 5
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 13 )
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 394, 297 )
+
+[node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+attenuation = 0.587058
+script = ExtResource( 12 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 604.245, 405.231 )
+scale = Vector2( 2, 1.21049 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Background"]
+position = Vector2( 325.378, 149.335 )
+scale = Vector2( 0.544763, 0.940083 )
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -201.0
+margin_top = 625.0
+margin_right = 839.0
+margin_bottom = 987.0
+rect_pivot_offset = Vector2( -934, -59 )
+custom_fonts/font = SubResource( 2 )
+text = "WARNING:
+Some scenes may contain 
+flashing lights or disturbing imagery. 
+
+"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 1160.0
+margin_bottom = 640.0
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_right = 1040.0
+margin_bottom = 560.0
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 1040.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="Quick Travel" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
+visible = false
+margin_bottom = 60.0
+
+[node name="Select" type="Button" parent="Menu/CenterRow/Buttons/Quick Travel"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -12.0
+margin_top = 12.0
+margin_right = 1028.0
+margin_bottom = 52.0
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 8 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="Menu/CenterRow/Buttons/Quick Travel/Select"]
+stream = ExtResource( 11 )
+attenuation = 5.46416
+
+[node name="World" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
+margin_bottom = 60.0
+
+[node name="Open" type="Button" parent="Menu/CenterRow/Buttons/World"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -12.2973
+margin_top = 9.10294
+margin_right = 1027.7
+margin_bottom = 52.1029
+rect_pivot_offset = Vector2( -723.703, 365.897 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 7 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="Menu/CenterRow/Buttons/World/Open"]
+stream = ExtResource( 11 )
+attenuation = 5.46416
+
+[node name="Options" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+visible = false
+margin_top = 160.0
+margin_bottom = 220.0
+
+[node name="Exit" parent="Menu/CenterRow/Buttons" instance=ExtResource( 9 )]
+margin_top = 80.0
+margin_bottom = 143.0
+script = ExtResource( 10 )
+
+[node name="ExitButton" type="Button" parent="Menu/CenterRow/Buttons/Exit"]
+modulate = Color( 0, 0, 0, 0 )
+margin_left = -10.5947
+margin_top = 4.23785
+margin_right = 1029.41
+margin_bottom = 53.2379
+toggle_mode = true
+button_mask = 3
+keep_pressed_outside = true
+script = ExtResource( 6 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="Menu/CenterRow/Buttons/Exit/ExitButton"]
+stream = ExtResource( 11 )
+attenuation = 5.46416
+
+[connection signal="button_up" from="Menu/CenterRow/Buttons/Exit" to="Menu/CenterRow/Buttons/Exit/ExitButton" method="_on_Exit_button_up"]

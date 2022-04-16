@@ -1,0 +1,164 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/audio/403007__inspectorj__ui-confirmation-alert-a2.wav" type="AudioStream" id=2]
+[ext_resource path="res://MainTheme4.gd" type="Script" id=3]
+[ext_resource path="res://PuzzleButton3.gd" type="Script" id=4]
+[ext_resource path="res://assets/audio/501575__discordantscraps__glitch-tickle-3.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/eyes2.png" type="Texture" id=6]
+[ext_resource path="res://assets/CroissantMan.png" type="Texture" id=7]
+[ext_resource path="res://assets/bg.png" type="Texture" id=8]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/ShopBG.png-f62a4ad204514e37f5f96abe7516da4b.stex"
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 1 )
+
+[node name="Shop3" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+show_behind_parent = true
+light_mask = 2
+position = Vector2( 903, 464 )
+scale = Vector2( 1.52167, 1 )
+texture = ExtResource( 8 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+color = Color( 0.478431, 0.258824, 0.258824, 1 )
+
+[node name="Spike" type="Sprite" parent="."]
+position = Vector2( 1111, 449 )
+scale = Vector2( 1.085, 1 )
+texture = ExtResource( 7 )
+
+[node name="Eye" type="Sprite" parent="Spike"]
+position = Vector2( -2.76489, -99 )
+scale = Vector2( 0.3868, 0.405533 )
+texture = ExtResource( 6 )
+
+[node name="Shop-BG" type="Sprite" parent="Spike"]
+position = Vector2( -743.779, -218.5 )
+scale = Vector2( 0.936035, 2.68362 )
+texture = SubResource( 1 )
+
+[node name="LuckOn" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -253.053
+margin_top = 26.2705
+margin_right = 299.947
+margin_bottom = 56.2705
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 2 )
+text = "You alre???y h?ve thi? buff! Try a??in ????r."
+
+[node name="NoMoney" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -275.699
+margin_top = 26.2705
+margin_right = 277.301
+margin_bottom = 56.2705
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 2 )
+text = "You d???t have the m?ney to a???rd that it??."
+
+[node name="Stealing" type="Label" parent="Spike/Shop-BG/NoMoney"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 968.887
+margin_top = -201.966
+margin_right = 1237.89
+margin_bottom = -165.966
+custom_fonts/font = SubResource( 2 )
+text = "YOU. CANT. LEAVE."
+
+[node name="ESCtoLeave" type="Label" parent="Spike/Shop-BG"]
+margin_left = -264.868
+margin_top = 202.152
+margin_right = 323.132
+margin_bottom = 232.152
+rect_min_size = Vector2( 0, 0.3 )
+rect_scale = Vector2( 1, 0.4 )
+custom_fonts/font = SubResource( 2 )
+text = "YTHERTE IS NO POISNT IN CONTYINUING. STOP NOW>"
+
+[node name="Label" type="Label" parent="Spike"]
+anchor_top = 0.028
+anchor_bottom = 0.028
+margin_left = -1003.69
+margin_top = -455.364
+margin_right = -592.687
+margin_bottom = -401.364
+rect_scale = Vector2( 2, 2 )
+text = "?????? ????? [100 Points]"
+
+[node name="PuzzleButton" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 191.0
+margin_top = -1.0
+margin_right = 244.0
+margin_bottom = 25.0
+button_mask = 7
+text = "B??!"
+script = ExtResource( 4 )
+
+[node name="PuzzleButton2" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 54.3796
+margin_top = 36.176
+margin_right = 107.38
+margin_bottom = 62.176
+button_mask = 7
+text = "?uy!"
+
+[node name="PuzzleButton3" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 187.098
+margin_top = 138.676
+margin_right = 240.098
+margin_bottom = 164.676
+button_mask = 7
+text = "??y!"
+
+[node name="PuzzleButton4" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 87.5593
+margin_top = 117.176
+margin_right = 140.559
+margin_bottom = 143.176
+button_mask = 7
+text = "Buy!"
+
+[node name="PuzzleButton5" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 161.753
+margin_top = 59.176
+margin_right = 214.753
+margin_bottom = 85.176
+button_mask = 7
+text = "B?y!"
+
+[node name="PuzzleButton6" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 5.99247
+margin_top = 156.676
+margin_right = 58.9925
+margin_bottom = 182.676
+button_mask = 7
+text = "???!"
+
+[node name="MainTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -4.0
+autoplay = true
+script = ExtResource( 3 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 1623.72, 570 )
+scale = Vector2( 1.085, 1 )
+stream = ExtResource( 2 )
+attenuation = 5.46416

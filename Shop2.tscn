@@ -1,0 +1,149 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://BuyPiece.gd" type="Script" id=2]
+[ext_resource path="res://Button.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/403007__inspectorj__ui-confirmation-alert-a2.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/264295__foolboymedia__sky-loop.wav" type="AudioStream" id=5]
+[ext_resource path="res://ShopTheme.gd" type="Script" id=6]
+[ext_resource path="res://assets/bg.png" type="Texture" id=7]
+[ext_resource path="res://assets/Shopkeeper.png" type="Texture" id=8]
+[ext_resource path="res://assets/eyes2.png" type="Texture" id=9]
+[ext_resource path="res://DrainButton.gd" type="Script" id=10]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/ShopBG.png-f62a4ad204514e37f5f96abe7516da4b.stex"
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 1 )
+
+[node name="Shop2" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+show_behind_parent = true
+light_mask = 2
+position = Vector2( 903, 464 )
+scale = Vector2( 1.52167, 1 )
+texture = ExtResource( 7 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+color = Color( 0.984314, 0.827451, 0.827451, 1 )
+
+[node name="Spike" type="Sprite" parent="."]
+position = Vector2( 1104, 473 )
+scale = Vector2( 1.085, 1 )
+texture = ExtResource( 8 )
+
+[node name="Eye" type="Sprite" parent="Spike"]
+position = Vector2( 30.8755, -91 )
+scale = Vector2( 0.107107, 0.11336 )
+texture = ExtResource( 9 )
+
+[node name="Eye2" type="Sprite" parent="Spike"]
+position = Vector2( -63.5947, -86 )
+scale = Vector2( 0.109153, 0.0990216 )
+texture = ExtResource( 9 )
+
+[node name="Shop-BG" type="Sprite" parent="Spike"]
+position = Vector2( -743.779, -218.5 )
+scale = Vector2( 0.936035, 2.68362 )
+texture = SubResource( 1 )
+
+[node name="LuckOn" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -253.053
+margin_top = 26.2705
+margin_right = 299.947
+margin_bottom = 56.2705
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 2 )
+text = "You alr?ady have t?is buff! Try again l??er."
+
+[node name="NoMoney" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -275.699
+margin_top = 26.2705
+margin_right = 277.301
+margin_bottom = 56.2705
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 2 )
+text = "You d?n't have the money to a?ford th?? item."
+
+[node name="Stealing" type="Label" parent="Spike/Shop-BG/NoMoney"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 1123.48
+margin_top = -67.0736
+margin_right = 1392.48
+margin_bottom = -31.0736
+custom_fonts/font = SubResource( 2 )
+text = "Grrrrr~ No ste??ing!"
+
+[node name="ESCtoLeave" type="Label" parent="Spike/Shop-BG"]
+margin_left = -264.868
+margin_top = 202.152
+margin_right = 323.132
+margin_bottom = 232.152
+rect_min_size = Vector2( 0, 0.3 )
+rect_scale = Vector2( 1, 0.4 )
+custom_fonts/font = SubResource( 2 )
+text = "If you'd like, you can use 'ESC' to leave the shop!"
+
+[node name="Label" type="Label" parent="Spike"]
+anchor_top = 0.028
+anchor_bottom = 0.028
+margin_left = -1003.69
+margin_top = -455.364
+margin_right = -592.687
+margin_bottom = -401.364
+rect_scale = Vector2( 2, 2 )
+text = "Pu?zle Pie?e [200 Points]
+
+Dra?n I?mu?ity [100 Points]
+
+Luck ?o?ion [60 Points]"
+
+[node name="PuzzleButton" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 195.393
+margin_top = -1.5
+margin_right = 243.393
+margin_bottom = 18.5
+button_mask = 7
+text = "Buy!"
+script = ExtResource( 3 )
+
+[node name="LuckButton" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 194.472
+margin_top = 65.0
+margin_right = 242.472
+margin_bottom = 85.0
+button_mask = 7
+text = "Buy!"
+script = ExtResource( 2 )
+
+[node name="DrainButton" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 195.393
+margin_top = 32.0
+margin_right = 243.393
+margin_bottom = 52.0
+button_mask = 7
+text = "B?y!"
+script = ExtResource( 10 )
+
+[node name="MainTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+script = ExtResource( 6 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 1623.72, 570 )
+scale = Vector2( 1.085, 1 )
+stream = ExtResource( 4 )
+attenuation = 5.46416

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/627275__tyops__calm-and-sad.wav-aa9792434fc0e1c3ebc8e916f05ab3fc.sample"
+
+[deps]
+
+source_file="res://assets/audio/627275__tyops__calm-and-sad.wav"
+dest_files=[ "res://.import/627275__tyops__calm-and-sad.wav-aa9792434fc0e1c3ebc8e916f05ab3fc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
