@@ -178,6 +178,7 @@ size_flags_vertical = 5
 custom_fonts/font = SubResource( 2 )
 text = "Po?nts: ?00"
 align = 2
+autowrap = true
 
 [node name="Label2" type="Label" parent="Main/Player/Main Character/Node2D"]
 visible = false
@@ -291,7 +292,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Enemy2/Enemy"]
 position = Vector2( -14.1727, -30.8135 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Main/Enemy2/Enemy/CollisionShape2D"]
@@ -304,7 +304,6 @@ cast_to = Vector2( 0, 100 )
 
 [node name="MeleeRange" type="CollisionShape2D" parent="Main/Enemy2/Enemy"]
 position = Vector2( -9.58289, -30.8134 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Main/Enemy2/Enemy/MeleeRange"]
@@ -327,7 +326,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Enemy3/Enemy"]
 position = Vector2( -14.1727, -30.8135 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Main/Enemy3/Enemy/CollisionShape2D"]
@@ -340,7 +338,6 @@ cast_to = Vector2( 0, 100 )
 
 [node name="MeleeRange" type="CollisionShape2D" parent="Main/Enemy3/Enemy"]
 position = Vector2( -9.58289, -30.8134 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Main/Enemy3/Enemy/MeleeRange"]

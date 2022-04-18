@@ -11,7 +11,7 @@ export (int) var speed = 800
 
 var velocity = Vector2()
 func _ready():
-	get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+	get_node("Node2D/Label").text = "Po??ts: " + str(globals.kills)
 	pass
 
 func collision():
@@ -115,7 +115,7 @@ func _physics_process(_delta):
 					var random_pos = Vector2(random_x, random_y)
 					
 					globals.kills = globals.kills - 3
-					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+					get_node("Node2D/Label").text = "Po?nts: " + str(globals.kills)
 					if random_pos != self.position:
 						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
 					$Node2D/Label3.hide()

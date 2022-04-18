@@ -14,7 +14,7 @@ func _button_pressed():
 		globals.set_kills(globals.kills - 100)
 		globals.set_level(4)
 		globals2.set_luck(false)
-		get_tree().change_scene("res://Menu2.tscn")
+		get_tree().change_scene("res://Story5.tscn")
 	else:
 		get_parent().get_parent().get_node("Shop-BG/NoMoney").show()
 		get_parent().get_parent().get_node("Shop-BG/NoMoney/Stealing").show()
