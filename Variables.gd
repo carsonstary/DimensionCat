@@ -4,6 +4,7 @@ var FirstShop = true
 var ShowHowKill = true
 var drain = true
 var level = 1
+var weapon_level = 1
 
 func set_kills(value):
 	kills = value
@@ -18,6 +19,8 @@ func set_level(value):
 	level = value
 func set_drain(value):
 	drain = value
+func set_weapon(value):
+	weapon_level = value
 
 # Declare member variables here. Examples:
 # var a = 2

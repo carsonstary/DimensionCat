@@ -6,6 +6,7 @@ onready var globals = get_node("/root/Variables")
 onready var globals2 = get_node("/root/Variables2")
 var LuckActive = false
 var LuckTimer = false
+var enemy_health = 5
 var rng = RandomNumberGenerator.new()
 export (int) var speed = 800
 
@@ -45,46 +46,48 @@ func get_input():
 				var random_x = randi() % int(x_range[1]- x_range[0]) + 1 + x_range[0] 
 				var random_y =  randi() % int(y_range[1]-y_range[0]) + 1 + y_range[0]
 				var random_pos = Vector2(random_x, random_y)
+				enemy_health = enemy_health - int(globals.weapon_level)
+				if enemy_health == 0:
+					enemy_health = 5
+					if int(random_x) % 10 == 0 && get_node("/root/Variables2").LuckPotion == false:
+						globals.set_kills(globals.kills + 7)
+						get_node("Node2D/Label").text = "P?i?ts: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+						$Node2D/Label2.hide()
+						$Node2D/Label3.show()
+						get_parent().get_parent().get_parent().get_node("Shader").visible = true
+						get_parent().get_parent().get_parent().get_node("Watching").visible = true
+						get_parent().get_parent().get_parent().get_node("Breath").play()
+						get_parent().get_parent().get_parent().get_node("HELP").visible = true
+						yield(get_tree().create_timer(3.0), "timeout")
+						get_parent().get_parent().get_parent().get_node("HELP").visible = false
+						get_parent().get_parent().get_parent().get_node("Shader").visible = false
+						get_parent().get_parent().get_parent().get_node("Watching").visible = false
+						$Node2D/Label3.hide()
+					elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
+						globals.set_kills(globals.kills + 5)
+						get_node("Node2D/Label").text = "?oi?ts: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+						if globals.drain == true:
+								rng.randomize()
+								var random = int(rng.randf_range(0, 100))
+								if random % 2:
+									globals.set_kills(globals.kills - 7)
+									get_node("Node2D/Label").text = "WU9VIFdPTlQ=" + str(globals.kills)
 
-				if int(random_x) % 10 == 0 && get_node("/root/Variables2").LuckPotion == false:
-					globals.set_kills(globals.kills + 7)
-					get_node("Node2D/Label").text = "P?i?ts: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					$Node2D/Label2.hide()
-					$Node2D/Label3.show()
-					get_parent().get_parent().get_parent().get_node("Shader").visible = true
-					get_parent().get_parent().get_parent().get_node("Watching").visible = true
-					get_parent().get_parent().get_parent().get_node("Breath").play()
-					get_parent().get_parent().get_parent().get_node("HELP").visible = true
-					yield(get_tree().create_timer(3.0), "timeout")
-					get_parent().get_parent().get_parent().get_node("HELP").visible = false
-					get_parent().get_parent().get_parent().get_node("Shader").visible = false
-					get_parent().get_parent().get_parent().get_node("Watching").visible = false
-					$Node2D/Label3.hide()
-				elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
-					globals.set_kills(globals.kills + 5)
-					get_node("Node2D/Label").text = "?oi?ts: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					if globals.drain == true:
-							rng.randomize()
-							var random = int(rng.randf_range(0, 100))
-							if random % 2:
-								globals.set_kills(globals.kills - 7)
-								get_node("Node2D/Label").text = "WU9VIFdPTlQ=" + str(globals.kills)
-
-				if get_node("/root/Variables2").LuckPotion == true:
-					globals.set_shop(false)
-					$Node2D/LuckActive.show()
-					globals.set_kills(globals.kills + 7)
-					get_node("Node2D/Label").text = "Poi??s: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					var LuckActive = true
-					if LuckTimer == false && LuckActive == true:
-						var LuckTimer = true
-						update_lucktimer()
+					if get_node("/root/Variables2").LuckPotion == true:
+						globals.set_shop(false)
+						$Node2D/LuckActive.show()
+						globals.set_kills(globals.kills + 7)
+						get_node("Node2D/Label").text = "Poi??s: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+						var LuckActive = true
+						if LuckTimer == false && LuckActive == true:
+							var LuckTimer = true
+							update_lucktimer()
 
 	if Input.is_action_just_released("escape"):
 # warning-ignore:return_value_discarded

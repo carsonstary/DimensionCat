@@ -318,7 +318,8 @@ margin_top = 2968.0
 margin_right = 151.0
 margin_bottom = 3042.0
 custom_fonts/font = SubResource( 19 )
-text = "Use [SPACE] to attack your enemies!"
+text = "Use [SPACE] to attack your enemies!
+It may take more than one hit."
 
 [node name="FirstShop" type="Label" parent="Main/Player/Main Character/Node2D"]
 modulate = Color( 0.360784, 1, 0.623529, 1 )

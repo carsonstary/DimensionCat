@@ -8,6 +8,7 @@ var LuckActive = false
 var LuckTimer = false
 var DrainWarning = true
 var candrain = true
+var enemy_health = 3
 var rng = RandomNumberGenerator.new()
 export (int) var speed = 800
 
@@ -47,37 +48,39 @@ func get_input():
 				var random_x = randi() % int(x_range[1]- x_range[0]) + 1 + x_range[0] 
 				var random_y =  randi() % int(y_range[1]-y_range[0]) + 1 + y_range[0]
 				var random_pos = Vector2(random_x, random_y)
+				enemy_health = enemy_health - int(globals.weapon_level)
+				if enemy_health == 0:
+					enemy_health = 3
+					if int(random_x) % 28 == 0 && get_node("/root/Variables2").LuckPotion == false:
+						globals.set_kills(globals.kills + 4)
+						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+						$Node2D/Label2.hide()
+						$Node2D/Label3.show()
+						get_parent().get_parent().get_parent().get_node("Shader").visible = true
+						get_parent().get_parent().get_parent().get_node("FREEDOM").visible = true
+						yield(get_tree().create_timer(3.0), "timeout")
+						get_parent().get_parent().get_parent().get_node("Shader").visible = false
+						get_parent().get_parent().get_parent().get_node("FREEDOM").visible = false
+						$Node2D/Label3.hide()
+					elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
+						globals.set_kills(globals.kills + 2)
+						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
 
-				if int(random_x) % 28 == 0 && get_node("/root/Variables2").LuckPotion == false:
-					globals.set_kills(globals.kills + 4)
-					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					$Node2D/Label2.hide()
-					$Node2D/Label3.show()
-					get_parent().get_parent().get_parent().get_node("Shader").visible = true
-					get_parent().get_parent().get_parent().get_node("FREEDOM").visible = true
-					yield(get_tree().create_timer(3.0), "timeout")
-					get_parent().get_parent().get_parent().get_node("Shader").visible = false
-					get_parent().get_parent().get_parent().get_node("FREEDOM").visible = false
-					$Node2D/Label3.hide()
-				elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
-					globals.set_kills(globals.kills + 2)
-					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-
-				if get_node("/root/Variables2").LuckPotion == true:
-					globals.set_shop(false)
-					$Node2D/LuckActive.show()
-					globals.set_kills(globals.kills + 4)
-					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
-					if random_pos != self.position:
-						get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
-					var LuckActive = true
-					if LuckTimer == false && LuckActive == true:
-						var LuckTimer = true
-						update_lucktimer()
+					if get_node("/root/Variables2").LuckPotion == true:
+						globals.set_shop(false)
+						$Node2D/LuckActive.show()
+						globals.set_kills(globals.kills + 4)
+						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+						if random_pos != self.position:
+							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+						var LuckActive = true
+						if LuckTimer == false && LuckActive == true:
+							var LuckTimer = true
+							update_lucktimer()
 
 	if Input.is_action_just_released("escape"):
 # warning-ignore:return_value_discarded

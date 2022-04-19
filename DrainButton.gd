@@ -13,6 +13,7 @@ func _button_pressed():
 # warning-ignore:return_value_discarded
 		globals.set_kills(globals.kills - 100)
 		globals.set_drain(false)
+		globals.set_weapon(3)
 		get_tree().change_scene("res://Level2.tscn")
 	else:
 		get_parent().get_parent().get_node("Shop-BG/NoMoney").show()
