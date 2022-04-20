@@ -1,9 +1,8 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://TileMap.tres" type="TileSet" id=2]
 [ext_resource path="res://MC-3.gd" type="Script" id=3]
-[ext_resource path="res://assets/placeholder.png" type="Texture" id=4]
 [ext_resource path="res://assets/audio/506085__xcreenplay__clock-is-ticking.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/eyes2.png" type="Texture" id=6]
 [ext_resource path="res://assets/ShopBG.png" type="Texture" id=7]
@@ -247,12 +246,13 @@ collision_mask = 2
 collide_with_areas = true
 
 [node name="Enemy" type="Sprite" parent="Main"]
-position = Vector2( 1415, 723 )
-scale = Vector2( 0.175781, 0.191633 )
+position = Vector2( 1414, 708 )
+scale = Vector2( 0.0859375, 0.0890688 )
 texture = ExtResource( 6 )
 
 [node name="Enemy" type="KinematicBody2D" parent="Main/Enemy"]
-position = Vector2( -1.28967, 3.85986 )
+position = Vector2( 9, 176.714 )
+scale = Vector2( 2.04545, 2.15152 )
 collision_layer = 2
 collision_mask = 2
 
@@ -281,12 +281,13 @@ exclude_parent = false
 cast_to = Vector2( 0, 100 )
 
 [node name="Enemy2" type="Sprite" parent="Main"]
-position = Vector2( 391, 476.755 )
-scale = Vector2( 0.258693, 0.250605 )
-texture = ExtResource( 4 )
+position = Vector2( 389.5, 470 )
+scale = Vector2( 0.0783951, 0.0407408 )
+texture = ExtResource( 12 )
 
 [node name="Enemy" type="KinematicBody2D" parent="Main/Enemy2"]
-position = Vector2( -1.28967, 3.85986 )
+position = Vector2( 37.5005, 217.7 )
+scale = Vector2( 3.27198, 5.94954 )
 collision_layer = 2
 collision_mask = 2
 
@@ -315,12 +316,13 @@ exclude_parent = false
 cast_to = Vector2( 0, 100 )
 
 [node name="Enemy3" type="Sprite" parent="Main"]
-position = Vector2( 1324, 197 )
-scale = Vector2( 0.258693, 0.250605 )
-texture = ExtResource( 4 )
+position = Vector2( 1321, 189 )
+scale = Vector2( 0.0790124, 0.0388889 )
+texture = ExtResource( 12 )
 
 [node name="Enemy" type="KinematicBody2D" parent="Main/Enemy3"]
-position = Vector2( -1.28967, 3.85986 )
+position = Vector2( 33.748, 230.588 )
+scale = Vector2( 3.27408, 6.44413 )
 collision_layer = 2
 collision_mask = 2
 

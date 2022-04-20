@@ -26,34 +26,41 @@ func collision():
 func get_input():
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
-		velocity.x -= 0.1
+		velocity.x += 0.1
 		get_node("MC-Sprite").set_flip_h(true)
 	if Input.is_action_pressed("ui_left"):
-		velocity.x += 0.1
+		velocity.x -= 0.1
 		get_node("MC-Sprite").set_flip_h(false)
 	if Input.is_action_pressed("ui_down"):
-		velocity.y -= 0.1
-	if Input.is_action_pressed("ui_select"):
 		velocity.y += 0.1
+	if Input.is_action_pressed("ui_select"):
+		velocity.y -= 0.1
 	velocity = velocity.normalized() * speed
 		
 	if Input.is_action_just_pressed("ui_accept"):
 		if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
-			if is_instance_valid(collision()):
+			color_flash()
+			var stored_collision = collision()
+			yield(get_tree().create_timer(0.3), "timeout")
+			stored_collision.get_parent().set_modulate(modulate)
+			if is_instance_valid(stored_collision):
 				randomize()
 				var x_range = Vector2(0, 1500)
 				var y_range = Vector2(0, 1000)
 				var random_x = randi() % int(x_range[1]- x_range[0]) + 1 + x_range[0] 
 				var random_y =  randi() % int(y_range[1]-y_range[0]) + 1 + y_range[0]
 				var random_pos = Vector2(random_x, random_y)
-				enemy_health = enemy_health - int(globals.weapon_level)
-				if enemy_health == 0:
+				if int(random_x) % 30 == 0:
+					enemy_health = enemy_health - (int(globals.weapon_level)+3)
+				else:
+					enemy_health = enemy_health - int(globals.weapon_level)
+				if enemy_health <= 0:
 					enemy_health = 5
-					if int(random_x) % 10 == 0 && get_node("/root/Variables2").LuckPotion == false:
+					if int(random_x) % 10 == 0 && get_node("/root/Variables2").LuckPotion == false && stored_collision == collision():
 						globals.set_kills(globals.kills + 7)
 						get_node("Node2D/Label").text = "P?i?ts: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 						$Node2D/Label2.hide()
 						$Node2D/Label3.show()
 						get_parent().get_parent().get_parent().get_node("Shader").visible = true
@@ -65,25 +72,25 @@ func get_input():
 						get_parent().get_parent().get_parent().get_node("Shader").visible = false
 						get_parent().get_parent().get_parent().get_node("Watching").visible = false
 						$Node2D/Label3.hide()
-					elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
+					elif int(random_x) % 10 != 0 && get_node("/root/Variables2").LuckPotion == false && stored_collision == collision():
 						globals.set_kills(globals.kills + 5)
 						get_node("Node2D/Label").text = "?oi?ts: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 						if globals.drain == true:
 								rng.randomize()
 								var random = int(rng.randf_range(0, 100))
 								if random % 2:
 									globals.set_kills(globals.kills - 7)
-									get_node("Node2D/Label").text = "WU9VIFdPTlQ=" + str(globals.kills)
+									get_node("Node2D/Label").text = "??????: " + str(random)
 
-					if get_node("/root/Variables2").LuckPotion == true:
+					if get_node("/root/Variables2").LuckPotion == true && stored_collision == collision():
 						globals.set_shop(false)
 						$Node2D/LuckActive.show()
 						globals.set_kills(globals.kills + 7)
 						get_node("Node2D/Label").text = "Poi??s: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 						var LuckActive = true
 						if LuckTimer == false && LuckActive == true:
 							var LuckTimer = true
@@ -93,6 +100,13 @@ func get_input():
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Menu.tscn")
 
+func color_flash():
+	var modulate = collision().get_parent().get_modulate()
+	collision().get_parent().set_modulate(lerp(modulate,Color(0.55, 0, 0, 1),0.5))
+	yield(get_tree().create_timer(0.3), "timeout")
+	if is_instance_valid(collision()):
+		collision().get_parent().set_modulate(modulate)
+		
 func update_lucktimer():
 	yield(get_tree().create_timer(120.0), "timeout")
 	globals2.set_luck(false)
@@ -110,6 +124,7 @@ func _physics_process(_delta):
 		if globals.kills >= 3:
 			if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
 				if is_instance_valid(collision()):
+					collision().get_parent().set_modulate(modulate)
 					randomize()
 					var x_range = Vector2(0, 1500)
 					var y_range = Vector2(0, 1000)

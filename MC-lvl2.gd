@@ -41,21 +41,28 @@ func get_input():
 		
 	if Input.is_action_just_pressed("ui_accept"):
 		if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
-			if is_instance_valid(collision()):
+			color_flash()
+			var stored_collision = collision()
+			yield(get_tree().create_timer(0.3), "timeout")
+			stored_collision.get_parent().set_modulate(modulate)
+			if is_instance_valid(stored_collision):
 				randomize()
 				var x_range = Vector2(0, 1500)
 				var y_range = Vector2(0, 1000)
 				var random_x = randi() % int(x_range[1]- x_range[0]) + 1 + x_range[0] 
 				var random_y =  randi() % int(y_range[1]-y_range[0]) + 1 + y_range[0]
 				var random_pos = Vector2(random_x, random_y)
-				enemy_health = enemy_health - int(globals.weapon_level)
-				if enemy_health == 0:
+				if int(random_x) % 30 == 0:
+					enemy_health = enemy_health - (int(globals.weapon_level)+2)
+				else:
+					enemy_health = enemy_health - int(globals.weapon_level)
+				if enemy_health <= 0:
 					enemy_health = 3
-					if int(random_x) % 28 == 0 && get_node("/root/Variables2").LuckPotion == false:
+					if int(random_x) % 28 == 0 && get_node("/root/Variables2").LuckPotion == false && stored_collision == collision():
 						globals.set_kills(globals.kills + 4)
 						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 						$Node2D/Label2.hide()
 						$Node2D/Label3.show()
 						get_parent().get_parent().get_parent().get_node("Shader").visible = true
@@ -64,19 +71,19 @@ func get_input():
 						get_parent().get_parent().get_parent().get_node("Shader").visible = false
 						get_parent().get_parent().get_parent().get_node("FREEDOM").visible = false
 						$Node2D/Label3.hide()
-					elif int(random_x) % 30 != 0 && get_node("/root/Variables2").LuckPotion == false:
+					elif int(random_x) % 28 != 0 && get_node("/root/Variables2").LuckPotion == false && stored_collision == collision():
 						globals.set_kills(globals.kills + 2)
 						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 
-					if get_node("/root/Variables2").LuckPotion == true:
+					if get_node("/root/Variables2").LuckPotion == true && stored_collision == collision():
 						globals.set_shop(false)
 						$Node2D/LuckActive.show()
 						globals.set_kills(globals.kills + 4)
 						get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 						if random_pos != self.position:
-							get_parent().get_parent().get_node(collision().get_parent().get_path()).position=random_pos
+							get_parent().get_parent().get_node(stored_collision.get_parent().get_path()).position=random_pos
 						var LuckActive = true
 						if LuckTimer == false && LuckActive == true:
 							var LuckTimer = true
@@ -103,6 +110,7 @@ func _physics_process(_delta):
 		if globals.kills >= 3:
 			if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
 				if is_instance_valid(collision()):
+					collision().get_pareant().set_modulate(modulate)
 					randomize()
 					var x_range = Vector2(0, 1500)
 					var y_range = Vector2(0, 1000)
@@ -122,6 +130,13 @@ func _physics_process(_delta):
 			globals.set_kills(0)
 			get_tree().change_scene("res://Death.tscn")
 
+func color_flash():
+	var modulate = collision().get_parent().get_modulate()
+	collision().get_parent().set_modulate(lerp(modulate,Color(0.55, 0, 0, 1),0.5))
+	yield(get_tree().create_timer(0.3), "timeout")
+	if is_instance_valid(collision()):
+		collision().get_parent().set_modulate(modulate)
+		
 func _process(delta: float) -> void:
 	rng.randomize()
 	var random = rng.randf_range(0,1000)
