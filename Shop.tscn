@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/Shopkeeper.png" type="Texture" id=1]
 [ext_resource path="res://assets/bg.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/audio/403007__inspectorj__ui-confirmation-alert-a2.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/audio/264295__foolboymedia__sky-loop.wav" type="AudioStream" id=7]
 [ext_resource path="res://ShopTheme.gd" type="Script" id=8]
+[ext_resource path="res://UpgradeWeapon.gd" type="Script" id=9]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -46,6 +47,18 @@ margin_bottom = 56.2705
 rect_scale = Vector2( 1, 0.5 )
 custom_fonts/font = SubResource( 2 )
 text = "You already have this buff! Try again later."
+
+[node name="AlreadyUpgrade" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -253.0
+margin_top = 26.0
+margin_right = 247.0
+margin_bottom = 127.0
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 2 )
+text = "You already have this upgrade! You have to go to the next level to buy a sharper stick."
+autowrap = true
 
 [node name="NoMoney" type="Label" parent="Spike/Shop-BG"]
 visible = false
@@ -88,6 +101,8 @@ margin_bottom = -401.364
 rect_scale = Vector2( 2, 2 )
 text = "Puzzle Piece [100 Points]
 
+Weapon Upgrade [50 Points]
+
 Luck Potion [30 Points]"
 
 [node name="Button" type="Button" parent="Spike/Label"]
@@ -102,13 +117,23 @@ script = ExtResource( 3 )
 
 [node name="Button2" type="Button" parent="Spike/Label"]
 modulate = Color( 1, 0.992157, 0.992157, 1 )
-margin_left = 194.032
-margin_top = 30.2473
-margin_right = 242.032
-margin_bottom = 50.2473
+margin_left = 193.089
+margin_top = 65.5
+margin_right = 241.089
+margin_bottom = 85.5
 button_mask = 7
 text = "Buy!"
 script = ExtResource( 4 )
+
+[node name="Button3" type="Button" parent="Spike/Label"]
+modulate = Color( 1, 0.992157, 0.992157, 1 )
+margin_left = 193.089
+margin_top = 32.5
+margin_right = 241.089
+margin_bottom = 52.5
+button_mask = 7
+text = "Buy!"
+script = ExtResource( 9 )
 
 [node name="MainTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

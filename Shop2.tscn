@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://BuyPiece.gd" type="Script" id=2]
@@ -16,6 +16,10 @@ flags = 4
 load_path = "res://.import/ShopBG.png-f62a4ad204514e37f5f96abe7516da4b.stex"
 
 [sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 25
 font_data = ExtResource( 1 )
 
@@ -62,6 +66,18 @@ rect_scale = Vector2( 1, 0.5 )
 custom_fonts/font = SubResource( 2 )
 text = "You alr?ady have t?is buff! Try again l??er."
 
+[node name="AlreadyUpgrade" type="Label" parent="Spike/Shop-BG"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -253.0
+margin_top = 26.0
+margin_right = 247.0
+margin_bottom = 127.0
+rect_scale = Vector2( 1, 0.5 )
+custom_fonts/font = SubResource( 3 )
+text = "Y?u already have t?is up??ade! You ha?e to go ?? the next lev?l to buy a shar?er st?ck."
+autowrap = true
+
 [node name="NoMoney" type="Label" parent="Spike/Shop-BG"]
 visible = false
 modulate = Color( 1, 0, 0, 1 )
@@ -103,7 +119,7 @@ margin_bottom = -401.364
 rect_scale = Vector2( 2, 2 )
 text = "Pu?zle Pie?e [200 Points]
 
-Da??ge U?gr?de [100 Points]
+We?p?n U??rade [100 Points]
 
 Luck ?o?ion [60 Points]"
 

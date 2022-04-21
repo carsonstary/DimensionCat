@@ -5,6 +5,7 @@ var ShowHowKill = true
 var drain = true
 var level = 1
 var weapon_level = 1
+var immunity = false
 
 func set_kills(value):
 	kills = value
@@ -21,6 +22,8 @@ func set_drain(value):
 	drain = value
 func set_weapon(value):
 	weapon_level = value
+func set_immune(value):
+	immunity = value
 
 # Declare member variables here. Examples:
 # var a = 2

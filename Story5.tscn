@@ -2,9 +2,9 @@
 
 [ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://TileMap.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/audio/341857__shadydave__before-we-grow-up-loop.wav" type="AudioStream" id=3]
+[ext_resource path="res://Story5Theme.gd" type="Script" id=3]
 [ext_resource path="res://ControlTextbox.gd" type="Script" id=4]
-[ext_resource path="res://MainTheme-Story1.gd" type="Script" id=5]
+[ext_resource path="res://assets/audio/587616__szegvari__dark-night-atmo-background-film.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/audio/506085__xcreenplay__clock-is-ticking.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/audio/501575__discordantscraps__glitch-tickle-3.wav" type="AudioStream" id=7]
 [ext_resource path="res://Story-MC.gd" type="Script" id=8]
@@ -107,13 +107,20 @@ rotation = 3.14159
 scale = Vector2( 4.51709, -0.0262389 )
 collision_layer = 4
 
-[node name="Light2D2" type="Light2D" parent="World/World2D"]
-position = Vector2( 555.999, 284.77 )
-rotation = -0.000451488
-scale = Vector2( 4.57799, 3.7998 )
+[node name="Light2D3" type="Light2D" parent="World/World2D"]
+visible = false
+position = Vector2( 692.381, 646.409 )
+rotation = -0.000829847
+scale = Vector2( 7.11387, 2.28854 )
 texture = ExtResource( 14 )
-texture_scale = 2.0
+
+[node name="Light2D2" type="Light2D" parent="World/World2D"]
+position = Vector2( 756.183, 284.686 )
+rotation = -0.000451488
+scale = Vector2( 5.6271, 4.71567 )
+texture = ExtResource( 14 )
 energy = 0.8
+mode = 3
 
 [node name="Main" type="Node" parent="."]
 
@@ -221,7 +228,7 @@ margin_top = 63.0
 margin_right = 1387.0
 margin_bottom = 178.0
 custom_fonts/font = SubResource( 3 )
-text = "O h . . . you made it out."
+text = ". . ."
 autowrap = true
 
 [node name="Continue" type="Label" parent="Control/Dialogue"]
@@ -265,10 +272,9 @@ texture = ExtResource( 18 )
 
 [node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 935.917, 291.5 )
-stream = ExtResource( 3 )
-autoplay = true
+stream = ExtResource( 5 )
 attenuation = 7.72748
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 
 [node name="GlitchSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

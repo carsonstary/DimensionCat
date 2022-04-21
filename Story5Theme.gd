@@ -1,5 +1,5 @@
-extends AudioStreamPlayer
-var themesound = preload("res://assets/audio/627275__tyops__calm-and-sad.wav")
+extends AudioStreamPlayer2D
+var themesound = preload("res://assets/audio/587616__szegvari__dark-night-atmo-background-film.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

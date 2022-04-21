@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/ARLRDBD.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/audio/403007__inspectorj__ui-confirmation-alert-a2.wav" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/eyes2.png" type="Texture" id=6]
 [ext_resource path="res://assets/CroissantMan.png" type="Texture" id=7]
 [ext_resource path="res://assets/bg.png" type="Texture" id=8]
+[ext_resource path="res://EnemyImmunity.gd" type="Script" id=9]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -94,26 +95,29 @@ margin_top = -455.364
 margin_right = -592.687
 margin_bottom = -401.364
 rect_scale = Vector2( 2, 2 )
-text = "?????? ????? [100 Points]"
+text = "P??z?? ??ec? [100 Points]
+
+E???y I?m??t?y [50 Points]"
 
 [node name="PuzzleButton" type="Button" parent="Spike/Label"]
 modulate = Color( 1, 0.992157, 0.992157, 1 )
 margin_left = 191.0
 margin_top = -1.0
-margin_right = 244.0
-margin_bottom = 25.0
+margin_right = 240.0
+margin_bottom = 21.0
 button_mask = 7
 text = "B??!"
 script = ExtResource( 4 )
 
 [node name="PuzzleButton2" type="Button" parent="Spike/Label"]
 modulate = Color( 1, 0.992157, 0.992157, 1 )
-margin_left = 54.3796
-margin_top = 36.176
-margin_right = 107.38
-margin_bottom = 62.176
+margin_left = 190.785
+margin_top = 30.676
+margin_right = 240.785
+margin_bottom = 52.676
 button_mask = 7
 text = "?uy!"
+script = ExtResource( 9 )
 
 [node name="PuzzleButton3" type="Button" parent="Spike/Label"]
 modulate = Color( 1, 0.992157, 0.992157, 1 )
@@ -135,10 +139,10 @@ text = "Buy!"
 
 [node name="PuzzleButton5" type="Button" parent="Spike/Label"]
 modulate = Color( 1, 0.992157, 0.992157, 1 )
-margin_left = 161.753
-margin_top = 59.176
-margin_right = 214.753
-margin_bottom = 85.176
+margin_left = 19.8174
+margin_top = 65.176
+margin_right = 72.8174
+margin_bottom = 91.176
 button_mask = 7
 text = "B?y!"
 

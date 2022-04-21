@@ -9,18 +9,16 @@ func _ready():
 	
 func _button_pressed():
 	get_parent().get_parent().get_parent().get_node("ButtonClick").play()
-	if globals.kills >= 100:
+	if globals.kills >= 50:
 # warning-ignore:return_value_discarded
-		if globals.drain == true:
-			globals.set_kills(globals.kills - 100)
-			globals.set_drain(false)
-			globals.set_weapon(3)
-			get_tree().change_scene("res://Level2.tscn")
+		if globals.weapon_level < 2:
+			globals.set_kills(globals.kills - 50)
+			globals.set_weapon(2)
 		else:
 			get_parent().get_parent().get_node("Shop-BG/AlreadyUpgrade").show()
 			yield(get_tree().create_timer(3.0), "timeout")
 			get_parent().get_parent().get_node("Shop-BG/AlreadyUpgrade").hide()
-		get_tree().change_scene("res://Level2.tscn")
+		get_tree().change_scene("res://TileMap.tscn")
 	else:
 		get_parent().get_parent().get_node("Shop-BG/NoMoney").show()
 		get_parent().get_parent().get_node("Shop-BG/NoMoney/Stealing").show()

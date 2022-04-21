@@ -13,9 +13,8 @@ func _button_pressed():
 # warning-ignore:return_value_discarded
 		if globals.drain == true:
 			globals.set_kills(globals.kills - 100)
-			globals.set_drain(false)
-			globals.set_weapon(3)
-			get_tree().change_scene("res://Level2.tscn")
+			globals.set_immune(true)
+			get_tree().change_scene("res://Level3.tscn")
 		else:
 			get_parent().get_parent().get_node("Shop-BG/AlreadyUpgrade").show()
 			yield(get_tree().create_timer(3.0), "timeout")

@@ -12,6 +12,7 @@ export (int) var speed = 800
 
 var velocity = Vector2()
 func _ready():
+	globals.set_level(1)
 	if globals.ShowHowKill == true:
 		$Node2D/HowAttack.show()
 	if globals.FirstShop == false or globals.kills < 30:
@@ -48,7 +49,7 @@ func get_input():
 		if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
 			color_flash()
 			var stored_collision = collision()
-			yield(get_tree().create_timer(0.3), "timeout")
+			yield(get_tree().create_timer(0.1), "timeout")
 			stored_collision.get_parent().set_modulate(modulate)
 			if globals.kills >= 30 && globals.FirstShop == true:
 				$Node2D/FirstShop.show()
@@ -62,6 +63,16 @@ func get_input():
 				var random_pos = Vector2(random_x, random_y)
 				if int(random_x) % 30 == 0:
 					enemy_health = enemy_health - (int(globals.weapon_level)+1)
+				elif int(random_x) % 28 == 0:
+					globals.set_kills(globals.kills - 3)
+					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
+					$Node2D/Label3.hide()
+					$Node2D/LuckActive.hide()
+					$Node2D/Label2.show()
+					$Node2D/Label4.show()
+					yield(get_tree().create_timer(3.0), "timeout")
+					$Node2D/Label2.hide()
+					$Node2D/Label4.hide()
 				else:
 					enemy_health = enemy_health - int(globals.weapon_level)
 				if enemy_health <= 0:
@@ -102,7 +113,7 @@ func get_input():
 func color_flash():
 	var modulate = collision().get_parent().get_modulate()
 	collision().get_parent().set_modulate(lerp(modulate,Color(0.55, 0, 0, 1),0.5))
-	yield(get_tree().create_timer(0.3), "timeout")
+	yield(get_tree().create_timer(0.1), "timeout")
 	if is_instance_valid(collision()):
 		collision().get_parent().set_modulate(modulate)
 	
