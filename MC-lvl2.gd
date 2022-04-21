@@ -59,6 +59,7 @@ func get_input():
 					get_node("Node2D/Label").text = "Points: " + str(globals.kills)
 					$Node2D/Label3.hide()
 					$Node2D/LuckActive.hide()
+					$Node2D/LifeDrain.hide()
 					$Node2D/Label2.show()
 					$Node2D/Label4.show()
 					yield(get_tree().create_timer(3.0), "timeout")
@@ -120,7 +121,7 @@ func _physics_process(_delta):
 		if globals.kills >= 3:
 			if get_node("MC-Sprite/range").is_colliding() or get_node("MC-Sprite/range2").is_colliding():
 				if is_instance_valid(collision()):
-					collision().get_pareant().set_modulate(modulate)
+					collision().get_parent().set_modulate(modulate)
 					randomize()
 					var x_range = Vector2(0, 1500)
 					var y_range = Vector2(0, 1000)

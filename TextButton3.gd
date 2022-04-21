@@ -43,7 +43,7 @@ func _button_pressed():
 	if clickcount == 7:
 		get_parent().get_node("Text").text = "You know what... why don't you go down there and fight some for me?"
 	if clickcount == 8:
-		get_parent().get_node("Text").text = "I could really use a break from this whole *thing*"
+		get_parent().get_node("Text").text = "I could really use a break from this whole *thing*."
 	if clickcount == 9:
 		get_parent().get_node("Text").text = "I-i don't know. That sounds awfully dangerous..."
 		get_parent().get_node("Icon").set_texture(benjitxt)
